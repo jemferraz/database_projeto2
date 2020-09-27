@@ -1,0 +1,51 @@
+<%- include('./partials/head.ejs') %> 
+
+<body>
+  <div id="page">
+    <div class="card-content">
+      <h1>Pessoas Cadastradas</h1>
+
+      <div class='menu'>
+        <div class="filter-block">
+          <select name="occupation" id="occupation" onchange="window.location.href=this.value">
+            <option disabled selected value="/">Filtrar por profissão...</option>
+            <% renderParam.uniqueOccupations.forEach( occupation => { %>
+              <option value= "/?occupation=<%- occupation %>"><%- occupation %></option>
+            <% }) %>
+            <option value= "/">Todas as profissões</option>
+          </select>
+          <i class="fas fa-filter"></i>
+        </div>
+  
+        <div>
+          <a href='http://localhost:3000/cadastro'>Cadastrar pessoa</a>
+        </div>
+      </div>
+
+      <div class="people-table">
+        <table>
+          <tr>
+            <th>CPF</th>
+            <th>Nome</th>
+            <th>Gênero</th>
+            <th>Data de Nascimento</th>
+            <th>Profissão</th>
+          </tr>
+          <% renderParam.rows.forEach( row => { %>
+            <tr>
+              <td> <%- row['cpf'] %> </td>
+              <td> <%- row['name'] %> </td>
+              <td> <%- row['gender'] %> </td>
+              <td> <%- row['birthdate'].toISOString().slice(0,10) %> </td>
+              <td> <%- row['occupation'] %> </td>
+            </tr>
+          <% }) %>
+        </table>
+      </div>
+    </div>
+  </div>
+</body>
+
+<script src="front_end.js"></script>
+
+</html>
